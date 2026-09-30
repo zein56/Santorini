@@ -1,0 +1,12 @@
+import {newGame,apply,SIZES} from './engine.js';
+import assert from 'assert';
+let s=newGame(2);assert(s.n===5&&SIZES[12]===13);
+for(const i of [0,4,20,24])s=apply(s,{t:'place',i});assert(s.phase==='move'&&s.turn===0);
+s.h[1]=1;s.h[6]=2;s.h[7]=3;
+s=apply(s,{t:'move',from:0,i:1});s=apply(s,{t:'build',i:0});
+s=apply(s,{t:'move',from:4,i:3});s=apply(s,{t:'build',i:4});
+assert(apply(s,{t:'move',from:1,i:7}).error);
+s=apply(s,{t:'move',from:1,i:6});s=apply(s,{t:'build',i:5});
+s=apply(s,{t:'move',from:3,i:4});s=apply(s,{t:'build',i:3});
+s=apply(s,{t:'move',from:6,i:7});assert(s.winner===0);
+assert(newGame(3).n===6);console.log('motor testleri OK');
